@@ -101,6 +101,16 @@ static const CGFloat kNodeSize = 34;
         return;
     }
     
+    [self.nodeArray enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [self.nodeArray removeAllObjects];
+    
+    [self.lineArray enumerateObjectsUsingBlock:^(LineView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [self.lineArray removeAllObjects];
+    
     NSArray<NSNumber *> *data = @[@50, @10, @80, @30, @70, @20, @90, @40, @100, @60];
     [data enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self nodeWithIndex:idx].text = [NSString stringWithFormat:@"%@", obj];
@@ -109,13 +119,6 @@ static const CGFloat kNodeSize = 34;
 }
 
 - (void)reloadData {
-    [self.nodeArray enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperview];
-    }];
-    [self.lineArray enumerateObjectsUsingBlock:^(LineView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperview];
-    }];
-    
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat nodeSpaceHeight = 60;
     for (NSInteger index = 1; index <= self.nodeArray.count; index ++) {
